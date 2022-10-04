@@ -65,9 +65,13 @@ const generateTestCase = function(junitOptions, suiteOptions, tc, filepath, file
     testCase.testcase[0]._attr.file = filepath;
   }
 
-  // Write out all failure messages as <failure> tags
-  // Nested underneath <testcase> tag
   if (tc.status === testFailureStatus || tc.status === testErrorStatus) {
+    // Add optional line attribute to failed or errored testcase
+    // TODO: Fix
+    testCase.testcase[0]._attr.line = getFailureInfo(..)
+
+    // Write out all failure messages as <failure> tags
+    // Nested underneath <testcase> tag
     const failureMessages = junitOptions.noStackTrace === 'true' && tc.failureDetails ?
         tc.failureDetails.map(detail => detail.message) : tc.failureMessages;
 
